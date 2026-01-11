@@ -1,2 +1,17 @@
 # tg-shop-ai
-Developing a Telegram app for an online store with AI-powered chatbot integration
+
+Тема ВКР: разработка Telegram-приложения для интернет-магазина с интеграцией чат-бота на базе ИИ.
+
+## Состав проекта (каркас)
+- `app/web` — веб-часть (будет Flask: страницы, личный кабинет, админ-панель)
+- `app/bot` — Telegram-бот (витрина/поддержка/заказы)
+- `app/db` — модели и доступ к БД (SQL)
+- `app/ai` — модуль ИИ (классификация намерений/ответы)
+
+## Требования к окружению
+- Python 3.11
+- Windows / Linux
+
+## Быстрый запуск (сейчас)
+```bash
+python main.py
