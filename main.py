@@ -1,4 +1,5 @@
 import argparse
+from dotenv import load_dotenv
 
 
 def run_web() -> None:
@@ -9,10 +10,14 @@ def run_web() -> None:
 
 
 def run_bot() -> None:
-    print("Bot mode: not implemented yet (next step)")
+    from app.bot.bot import run
+
+    run()
 
 
 def main() -> None:
+    load_dotenv()  # loads .env from project root
+
     parser = argparse.ArgumentParser(prog="tg-shop-ai")
     subparsers = parser.add_subparsers(dest="command", required=False)
 
