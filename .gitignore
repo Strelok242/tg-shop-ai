@@ -209,3 +209,18 @@ __marimo__/
 # --- Project policy: do NOT commit IDE settings ---
 .idea/
 *.iml
+
+Local database files
+
+data/.db
+data/.sqlite
+data/*.sqlite3
+
+# Local database files
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+
+# Local data folder
+/data/*
+!/data/.gitkeep
