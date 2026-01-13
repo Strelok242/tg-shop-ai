@@ -8,6 +8,9 @@ from aiogram.types import Message
 from app.db.init_db import init_db
 from app.db.user_repo import upsert_user
 
+from aiogram.filters import Command, CommandStart
+from app.db.product_repo import list_active_products
+
 dp = Dispatcher()
 
 
@@ -23,6 +26,20 @@ async def cmd_start(message: Message) -> None:
         f"Привет! Я tg-shop-ai bot.\n"
         f"Я записал тебя в БД: user_id={user.id}, tg_id={user.tg_id}, username={user.username}"
     )
+
+@dp.message(Command("catalog"))
+async def cmd_catalog(message: Message) -> None:
+    products = list_active_products(limit=20)
+    if not products:
+        await message.answer("Каталог пуст. Админ ещё не добавил товары.")
+        return
+
+    lines = ["Каталог товаров:"]
+    for p in products:
+        price = p.price_cents / 100
+        lines.append(f"- {p.name} ({p.sku}) — {price:.2f} ₽")
+
+    await message.answer("\n".join(lines))
 
 
 @dp.message()
