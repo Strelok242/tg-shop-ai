@@ -22,6 +22,16 @@ def init_db_cmd() -> None:
     print("DB initialized: tables created (if not existed).")
 
 
+def seed_products_cmd() -> None:
+    from app.db.seed import seed_products
+
+    added = seed_products()
+    if added == 0:
+        print("Seed skipped: products already exist.")
+    else:
+        print(f"Seed done: added {added} products.")
+
+
 def main() -> None:
     load_dotenv()  # loads .env from project root
 
@@ -31,6 +41,7 @@ def main() -> None:
     subparsers.add_parser("web", help="Run Flask web server")
     subparsers.add_parser("bot", help="Run Telegram bot")
     subparsers.add_parser("init-db", help="Initialize database (create tables)")
+    subparsers.add_parser("seed-products", help="Create demo products (one-time)")
 
     args = parser.parse_args()
 
@@ -40,9 +51,11 @@ def main() -> None:
         run_bot()
     elif args.command == "init-db":
         init_db_cmd()
+    elif args.command == "seed-products":
+        seed_products_cmd()
     else:
         print("tg-shop-ai: project scaffold is OK")
-        print("Use: python main.py web  |  python main.py bot  |  python main.py init-db")
+        print("Use: python main.py web  |  python main.py bot  |  python main.py init-db  |  python main.py seed-products")
 
 
 if __name__ == "__main__":
