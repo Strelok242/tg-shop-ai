@@ -11,6 +11,8 @@ from app.db.user_repo import upsert_user
 from aiogram.filters import Command, CommandStart
 from app.db.product_repo import list_active_products
 
+from app.db.order_repo import create_order_for_user
+
 dp = Dispatcher()
 
 
@@ -40,6 +42,30 @@ async def cmd_catalog(message: Message) -> None:
         lines.append(f"- {p.name} ({p.sku}) — {price:.2f} ₽")
 
     await message.answer("\n".join(lines))
+
+@dp.message(Command("buy"))
+async def cmd_buy(message: Message) -> None:
+    parts = (message.text or "").split()
+    if len(parts) < 2:
+        await message.answer("Использование: /buy <SKU>\nНапример: /buy SKU-001")
+        return
+
+    sku = parts[1].strip()
+    tg_user = message.from_user
+    if tg_user is None:
+        await message.answer("Не удалось определить пользователя.")
+        return
+
+    try:
+        order = create_order_for_user(tg_id=tg_user.id, sku=sku, qty=1)
+        await message.answer(
+            f"Заказ создан ✅\n"
+            f"order_id={order.id}\n"
+            f"Статус: {order.status}\n"
+            f"Сумма: {order.total_cents / 100:.2f} ₽"
+        )
+    except ValueError as e:
+        await message.answer(f"Ошибка: {e}")
 
 
 @dp.message()
