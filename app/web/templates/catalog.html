@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Каталог</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 12px; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    th { background: #f6f6f6; text-align: left; }
+  </style>
+</head>
+<body>
+<h1>Каталог товаров</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>SKU</th>
+    <th>Название</th>
+    <th>Цена</th>
+    <th>Активен</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for p in products %}
+    <tr>
+      <td>{{ p.sku }}</td>
+      <td>{{ p.name }}</td>
+      <td>{{ "%.2f"|format(p.price_cents / 100) }} ₽</td>
+      <td>{{ "да" if p.is_active else "нет" }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<p style="margin-top: 14px;">
+  Админка: <a href="/admin/products">/admin/products</a>
+</p>
+</body>
+</html>

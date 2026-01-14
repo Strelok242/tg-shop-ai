@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Мои заказы</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    .flash { padding: 10px 12px; border-radius: 8px; margin: 10px 0; }
+    .error { background: #fdecea; border: 1px solid #f5c2c0; }
+    table { border-collapse: collapse; width: 100%; margin-top: 12px; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    th { background: #f6f6f6; text-align: left; }
+  </style>
+</head>
+<body>
+
+<h1>Мои заказы</h1>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, msg in messages %}
+      <div class="flash {{ category }}">{{ msg }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<p>
+  {% if tg_id %}
+    tg_id: <b>{{ tg_id }}</b>
+  {% else %}
+    Пример: <code>/orders?tg_id=360433158</code>
+  {% endif %}
+</p>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Статус</th>
+    <th>Сумма</th>
+    <th>Создан</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for o in orders %}
+    <tr>
+      <td>{{ o.id }}</td>
+      <td>{{ o.status }}</td>
+      <td>{{ "%.2f"|format(o.total_cents / 100) }} ₽</td>
+      <td>{{ o.created_at }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<p style="margin-top: 14px;">
+  Каталог: <a href="/catalog">/catalog</a>
+</p>
+
+</body>
+</html>

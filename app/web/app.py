@@ -5,7 +5,7 @@ from flask import Flask, flash, redirect, render_template, request, url_for
 
 from app.db.database import SessionLocal
 from app.db.init_db import init_db
-from app.db.models import Product
+from app.db.models import Product, User, Order
 
 
 def create_app() -> Flask:
@@ -68,5 +68,47 @@ def create_app() -> Flask:
             return render_template("admin_products.html", products=products)
         finally:
             session.close()
+
+    @app.get("/catalog")
+    def catalog_page():
+        session = SessionLocal()
+        try:
+            products = (
+                session.query(Product)
+                .filter(Product.is_active.is_(True))
+                .order_by(Product.id)
+                .all()
+            )
+            return render_template("catalog.html", products=products)
+        finally:
+            session.close()
+
+    @app.get("/orders")
+    def orders_page():
+        # Прототип "личного кабинета": пока через tg_id в query-параметре
+        tg_id_raw = (request.args.get("tg_id") or "").strip()
+        if not tg_id_raw.isdigit():
+            flash("Передай tg_id числом, например: /orders?tg_id=360433158", "error")
+            return render_template("orders.html", orders=[], tg_id=None)
+
+        tg_id = int(tg_id_raw)
+
+        session = SessionLocal()
+        try:
+            user = session.query(User).filter(User.tg_id == tg_id).one_or_none()
+            if user is None:
+                flash("Пользователь не найден в БД. Сначала сделай /start в боте.", "error")
+                return render_template("orders.html", orders=[], tg_id=tg_id)
+
+            orders = (
+                session.query(Order)
+                .filter(Order.user_id == user.id)
+                .order_by(Order.id.desc())
+                .all()
+            )
+            return render_template("orders.html", orders=orders, tg_id=tg_id)
+        finally:
+            session.close()
+
 
     return app
