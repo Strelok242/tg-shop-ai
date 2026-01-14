@@ -12,6 +12,7 @@ from aiogram.filters import Command, CommandStart
 from app.db.product_repo import list_active_products
 
 from app.db.order_repo import create_order_for_user
+from app.db.order_query import list_orders_by_tg_id
 
 dp = Dispatcher()
 
@@ -66,6 +67,24 @@ async def cmd_buy(message: Message) -> None:
         )
     except ValueError as e:
         await message.answer(f"Ошибка: {e}")
+
+@dp.message(Command("myorders"))
+async def cmd_myorders(message: Message) -> None:
+    tg_user = message.from_user
+    if tg_user is None:
+        await message.answer("Не удалось определить пользователя.")
+        return
+
+    orders = list_orders_by_tg_id(tg_id=tg_user.id, limit=5)
+    if not orders:
+        await message.answer("У тебя пока нет заказов. Используй /catalog и /buy <SKU>.")
+        return
+
+    lines = ["Твои последние заказы:"]
+    for o in orders:
+        lines.append(f"- order_id={o.id} | {o.status} | {o.total_cents / 100:.2f} ₽")
+
+    await message.answer("\n".join(lines))
 
 
 @dp.message()
