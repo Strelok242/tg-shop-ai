@@ -14,6 +14,10 @@ from app.db.product_repo import list_active_products
 from app.db.order_repo import create_order_for_user
 from app.db.order_query import list_orders_by_tg_id
 
+from app.ai.service import generate_reply
+from app.db.ai_repo import add_ai_log
+from aiogram.filters import Command, CommandStart
+
 dp = Dispatcher()
 
 
@@ -67,6 +71,29 @@ async def cmd_buy(message: Message) -> None:
         )
     except ValueError as e:
         await message.answer(f"Ошибка: {e}")
+
+@dp.message(Command("ai"))
+async def cmd_ai(message: Message) -> None:
+    tg_user = message.from_user
+    if tg_user is None:
+        await message.answer("Не удалось определить пользователя.")
+        return
+
+    parts = (message.text or "").split(maxsplit=1)
+    prompt = parts[1] if len(parts) > 1 else ""
+
+    reply = generate_reply(prompt)
+
+    try:
+        # логируем только если пользователь уже есть в БД
+        add_ai_log(tg_id=tg_user.id, prompt=prompt, response=reply)
+    except ValueError:
+        # пользователь не делал /start — мягко просим сделать
+        await message.answer("Сначала выполни /start, чтобы я мог вести историю запросов.")
+        return
+
+    await message.answer(reply)
+
 
 @dp.message(Command("myorders"))
 async def cmd_myorders(message: Message) -> None:
