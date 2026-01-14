@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Админка — товары</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    h1 { margin-top: 0; }
+    .flash { padding: 10px 12px; border-radius: 8px; margin: 10px 0; }
+    .ok { background: #e9f7ef; border: 1px solid #b7e3c6; }
+    .error { background: #fdecea; border: 1px solid #f5c2c0; }
+    table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    th { background: #f6f6f6; text-align: left; }
+    .form { margin-top: 20px; padding: 12px; border: 1px solid #ddd; border-radius: 10px; }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; }
+    label { display: block; font-size: 12px; color: #555; margin-bottom: 4px; }
+    input[type="text"], input[type="number"] { padding: 8px; width: 220px; }
+    textarea { width: 100%; padding: 8px; height: 80px; }
+    button { padding: 10px 14px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<h1>Админка: товары</h1>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, msg in messages %}
+      <div class="flash {{ category }}">{{ msg }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<div class="form">
+  <h3>Добавить товар</h3>
+  <form method="post">
+    <div class="row">
+      <div>
+        <label>SKU</label>
+        <input type="text" name="sku" placeholder="SKU-006" required>
+      </div>
+      <div>
+        <label>Название</label>
+        <input type="text" name="name" placeholder="Например: Чашка" required>
+      </div>
+      <div>
+        <label>Цена (₽)</label>
+        <input type="number" name="price_rub" step="0.01" placeholder="499.00" required>
+      </div>
+      <div style="align-self: end;">
+        <label>
+          <input type="checkbox" name="is_active" checked>
+          Активен
+        </label>
+      </div>
+    </div>
+
+    <div style="margin-top: 10px;">
+      <label>Описание</label>
+      <textarea name="description" placeholder="Краткое описание товара..."></textarea>
+    </div>
+
+    <div style="margin-top: 10px;">
+      <button type="submit">Добавить</button>
+    </div>
+  </form>
+</div>
+
+<h3>Список товаров</h3>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>SKU</th>
+      <th>Название</th>
+      <th>Цена</th>
+      <th>Активен</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for p in products %}
+    <tr>
+      <td>{{ p.id }}</td>
+      <td>{{ p.sku }}</td>
+      <td>{{ p.name }}</td>
+      <td>{{ "%.2f"|format(p.price_cents / 100) }} ₽</td>
+      <td>{{ "да" if p.is_active else "нет" }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+</body>
+</html>
