@@ -1,0 +1,80 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.3.2">
+  <diagram name="Страница-1" id="7T_L00CZMeMm_6rzPXYx">
+    <mxGraphModel dx="1032" dy="519" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="lrcVbScUhjB5L92s0hVE-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=middle;" value="Telegram Bot (aiogram)" vertex="1">
+          <mxGeometry height="80" width="120" x="160" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="lrcVbScUhjB5L92s0hVE-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Web App&lt;div&gt;(Flask)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="120" x="480" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="lrcVbScUhjB5L92s0hVE-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="AI Service" vertex="1">
+          <mxGeometry height="80" width="120" x="320" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="lrcVbScUhjB5L92s0hVE-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="DB Layer (SQLAlchemy: models + repos)" vertex="1">
+          <mxGeometry height="80" width="120" x="320" y="800" as="geometry" />
+        </mxCell>
+        <UserObject label="SQLite DB&amp;nbsp;&lt;div&gt;(app.db)&lt;br&gt;&lt;/div&gt;" link="&#xa;SQLite DB (app.db)&#xa;&#xa;" id="lrcVbScUhjB5L92s0hVE-5">
+          <mxCell parent="1" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1">
+            <mxGeometry height="80" width="120" x="320" y="960" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="lrcVbScUhjB5L92s0hVE-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value=".env (BOT_TOKEN)" vertex="1">
+          <mxGeometry height="50" width="90" x="175" y="575" as="geometry" />
+        </mxCell>
+        <mxCell id="lrcVbScUhjB5L92s0hVE-7" edge="1" parent="1" source="lrcVbScUhjB5L92s0hVE-1" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;" target="lrcVbScUhjB5L92s0hVE-4" value="(чтение/запись:&amp;nbsp;&lt;div&gt;users, orders, items)&lt;br&gt;&lt;/div&gt;">
+          <mxGeometry height="50" relative="1" width="50" x="0.3333" y="-20" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="220" y="840" />
+            </Array>
+            <mxPoint x="390" y="810" as="sourcePoint" />
+            <mxPoint x="440" y="760" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lrcVbScUhjB5L92s0hVE-8" edge="1" parent="1" source="lrcVbScUhjB5L92s0hVE-2" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;" target="lrcVbScUhjB5L92s0hVE-4" value="(чтение/запись:&lt;div&gt;&amp;nbsp;products, orders)&lt;br&gt;&lt;/div&gt;">
+          <mxGeometry height="50" relative="1" width="50" x="0.4444" y="20" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="540" y="840" />
+            </Array>
+            <mxPoint x="390" y="810" as="sourcePoint" />
+            <mxPoint x="440" y="760" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lrcVbScUhjB5L92s0hVE-9" edge="1" parent="1" source="lrcVbScUhjB5L92s0hVE-1" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;labelBackgroundColor=none;entryX=0.352;entryY=1.007;entryDx=0;entryDy=0;entryPerimeter=0;" target="lrcVbScUhjB5L92s0hVE-3" value="&#xa;(prompt)&#xa;&#xa;">
+          <mxGeometry height="50" relative="1" width="50" x="-0.5556" y="-20" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="362" y="720" />
+            </Array>
+            <mxPoint x="390" y="810" as="sourcePoint" />
+            <mxPoint x="350" y="650" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lrcVbScUhjB5L92s0hVE-10" edge="1" parent="1" source="lrcVbScUhjB5L92s0hVE-3" style="endArrow=classic;html=1;rounded=0;exitX=0.658;exitY=1.007;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.667;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;labelBackgroundColor=none;" target="lrcVbScUhjB5L92s0hVE-4" value="(логирование&lt;div&gt;ai_logs)&lt;br&gt;&lt;/div&gt;">
+          <mxGeometry height="50" relative="1" width="50" x="-0.5018" y="41" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="390" y="810" as="sourcePoint" />
+            <mxPoint x="440" y="760" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lrcVbScUhjB5L92s0hVE-11" edge="1" parent="1" source="lrcVbScUhjB5L92s0hVE-5" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;labelBackgroundColor=none;" target="lrcVbScUhjB5L92s0hVE-4" value="&#xa;(SQL/ORM)&#xa;&#xa;">
+          <mxGeometry height="50" relative="1" width="50" x="-0.25" y="-30" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="390" y="810" as="sourcePoint" />
+            <mxPoint x="440" y="760" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lrcVbScUhjB5L92s0hVE-12" edge="1" parent="1" source="lrcVbScUhjB5L92s0hVE-1" style="endArrow=none;dashed=1;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="390" y="810" as="sourcePoint" />
+            <mxPoint x="220" y="630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
