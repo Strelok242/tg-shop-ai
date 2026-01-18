@@ -224,3 +224,7 @@ data/*.sqlite3
 # Local data folder
 /data/*
 !/data/.gitkeep
+
+docs/img*.png
+docs/img*.jpg
+docs/img*.jpeg
