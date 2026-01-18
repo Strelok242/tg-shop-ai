@@ -13,3 +13,4 @@
 13. Sommerville I. Software Engineering. — 10th ed. — Boston: Pearson, 2015.
 14. Jurafsky D., Martin J. H. Speech and Language Processing. — 3rd ed. draft. — URL: https://web.stanford.edu/~jurafsky/slp3/ (дата обращения: 18.01.2026).
 15. draw.io (diagrams.net) Documentation. — URL: https://www.diagrams.net/doc (дата обращения: 18.01.2026).
+16. ГОСТ Р 7.0.100–2018. Библиографическая запись. Библиографическое описание. Общие требования и правила составления. — URL: https://docs.cntd.ru/document/1200161674 (дата обращения: 18.01.2026).
