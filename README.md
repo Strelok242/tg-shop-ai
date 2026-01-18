@@ -41,3 +41,5 @@ cd tg-shop-ai
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 pip install -r requirements.txt
+
+Live demo (Render): https://tg-shop-ai.onrender.com/catalog
